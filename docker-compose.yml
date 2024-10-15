@@ -1,0 +1,33 @@
+x-validation:
+  # This block is ignored by docker compose but will serve
+  # as validation for required variables as it's parsed anyway
+  - ${MYSQL_PASSWORD:?required}
+  - ${COMPOSE_PROFILES:?required}
+
+
+services:
+  backups:
+    image: hello-world
+    profiles:
+      - production
+
+  wordpress:
+    image: hello-world
+    profiles:
+      - local
+      - production
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: scoolinary
+      WORDPRESS_DB_PASWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: scoolinary
+
+  database:
+    image: hello-world
+    profiles:
+      - local
+      - production
+    environment:
+      MYSQL_DATABASE: scoolinary
+      MYSQL_USER: scoolinary
+      MYSQL_PASWORD: ${MYSQL_PASSWORD}
