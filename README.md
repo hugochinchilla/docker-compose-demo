@@ -1,18 +1,19 @@
 # Usage
 
-### Test local development
+### Test you cannot execute the environment without proper configuration
 
-Try to execute the environment:
-    
     docker-compose up -d
 
 See that it fails because you don't have the required config.
+
+### Test local development
+
 Configure the environment and try again:
 
     make setup-local
     docker-compose up -d
  
-See that the backup service was not executed as it's only for production:
+See that the "backup" service was not executed as it's only for production:
 
     docker compose ps -a
 
